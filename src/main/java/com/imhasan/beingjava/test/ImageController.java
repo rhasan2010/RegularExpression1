@@ -38,15 +38,15 @@ public class ImageController {
 
     public Map<String, List<ImgEntry>> createHwAddressToImgEntriesMap(String directory) throws ParseException {
         File filePath = new File(directory);
-//        String regex = "[\\d]+_[0-9a-fA-F]{12,16}_[\\d]{4}-[\\d]{2}-[\\d]{2}_[\\d]{2}[\\d]{2}[\\d]{2}";
         String regex = "[\\d]+_[xX]?[0-9a-fA-F]{12,16}_(19|20)[\\d][\\d]-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])_[\\d]{2}[\\d]{2}[\\d]{2}";
 
         for (File f : search(filePath, regex)) {
-            ImgEntry imgEntry = getObjFromFilePath(f);
-            if (imageMap.keySet().contains(imgEntry.getHwAddress())) {
-                imageMap.get(imgEntry.hwAddress).add(imgEntry);
+            final ImgEntry imgEntry = getObjFromFilePath(f);
+            final List<ImgEntry> entrys;
+            if (imageMap.containsKey(imgEntry.getHwAddress())) {
+                entrys = imageMap.get(imgEntry.getHwAddress());
             } else {
-                List<ImgEntry> entrys = new ArrayList<>();
+                entrys = new ArrayList<>();
                 entrys.add(imgEntry);
                 imageMap.put(imgEntry.getHwAddress(), entrys);
             }
@@ -90,14 +90,14 @@ public class ImageController {
         cal.setTime(sdf.parse(params[2] + "_" + params[3]));
         imgEntry.setTime(cal);
         try {
-            imgEntry.setMd5Hex(getFileContent(f));
+            imgEntry.setMd5Hex(getFileContentMD5Checksum(f));
         } catch (IOException ex) {
             Logger.getLogger(ImageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return imgEntry;
     }
 
-    private String getFileContent(File f) throws IOException {
+    private String getFileContentMD5Checksum(File f) throws IOException {
         FileInputStream fis = new FileInputStream(f);
         String md5 = DigestUtils.md5Hex(fis);
         fis.close();

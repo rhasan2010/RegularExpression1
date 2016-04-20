@@ -51,7 +51,7 @@ public class ImageControllerTest {
     @Test
     public void testCreateHwAddressToImgEntriesMap() throws Exception {
         System.out.println("createHwAddressToImgEntriesMap");
-        String expected = "ImageController{imageMap=[ImgEntry{eventCode=0, hwAddress=00050A010203, time=1405153239000, md5Hex=cf29de9e514d59ed03f33cdd5376520c}, ImgEntry{eventCode=0, hwAddress=00050A010203, time=1407505020000, md5Hex=b79b631054171dea899cf0bcdf1fbdc1}, ImgEntry{eventCode=1, hwAddress=00050A010203, time=1406895005000, md5Hex=e99bb926a03cdacfe2615889ee7271c5}][ImgEntry{eventCode=12, hwAddress=00050A01EFAC, time=1406916742000, md5Hex=63101a91c3c174874b0081b965c43410}][ImgEntry{eventCode=0, hwAddress=00050A0112AC, time=1406930074000, md5Hex=2b5a7f19ff072af9970f9d5334a726ec}, ImgEntry{eventCode=0, hwAddress=00050A0112AC, time=1406930352000, md5Hex=46a925876ba2781bb28b185338d39a24}]}";
+        String expected = "ImageController{imageMap=[ImgEntry{eventCode=0, hwAddress=00050A010203, time=1405153239000, md5Hex=cf29de9e514d59ed03f33cdd5376520c}][ImgEntry{eventCode=12, hwAddress=00050A01EFAC, time=1406916742000, md5Hex=63101a91c3c174874b0081b965c43410}][ImgEntry{eventCode=0, hwAddress=00050A0112AC, time=1406930074000, md5Hex=2b5a7f19ff072af9970f9d5334a726ec}]}";
         String directory = "C:\\Users\\Uzzal\\Desktop\\New folder\\questions_to_Robiul_Hasan\\data";
         Map<String, List<ImgEntry>> result = instance.createHwAddressToImgEntriesMap(directory);
         assertEquals(expected, instance.printMap(result));
